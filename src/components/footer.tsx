@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 const Footer = () => {
   return (
     <footer className="bg-gray-900 mt-[64px]">
@@ -5,106 +7,91 @@ const Footer = () => {
       <div className="container-footer-1 bg-[#a31d1d] pb-[12px] w-full">
         <ul className="lg:flex lg:mx-[302.500px] lg:px-[20px] lg:pb-[30px] xl:gap-[180px] md:gap-[80px]">
           <li className="list-none">
-            <p className="px-[16px] mt-[12px] text-[14px] font-semibold leading-[48px] text-[#ecdcbf]">For Diners</p>
-            <a
+            <p className="px-[16px] mt-[12px] text-[14px] font-semibold leading-[48px] text-[#ecdcbf]">For Travels</p>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
-              Reservations
-            </a>
-            <a
+              Booking
+            </Link>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
               Terms & Conditions
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
               Deals
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
               FAQ
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
               Rewards
-            </a>
+            </Link>
           </li>
-          <li className="list-none">
-            <p className="px-[16px] mt-[12px] text-[14px] font-semibold leading-[48px] text-[#ecdcbf] ">
-              For Restaurants
-            </p>
-            <a
-              href="#"
-              className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
-            >
-              Chope For Restaurants
-            </a>
-          </li>
+          
           <li className="list-none">
             <p className="px-[16px] mt-[12px] text-[14px] font-semibold leading-[48px] text-[#ecdcbf] ">
               More
             </p>
-            <a
-              href="#"
+            <Link
+              href="/about"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
-              About Chope
-            </a>
-            <a
+              About Travelins
+            </Link>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
               Contact Us
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
             >
               Careers
-            </a>
-            <a
-              href="#"
-              className="block pl-[40px] lg:pl-[15px] leading-[23px] mb-[15px] text-[#F7F8FA] text-[14px]"
-            >
-              Press
-            </a>
+            </Link>
+            
           </li>
           <li className="list-none">
             <p className="px-[16px] mt-[12px] text-[14px] font-semibold leading-[48px] text-[#a31d1d] ">
               Download our App
             </p>
-            <a href="#" className="block pl-[40px] leading-[23px] mb-[15px] ">
+            <Link href="#" className="block pl-[40px] leading-[23px] mb-[15px] ">
               <img
                 src="https://static.chope.co/static/mainwebsite5.0/images/ios-footer.svg?date=20250617"
                 alt="appstore"
                 className="h-[47px]"
                 aria-label="Download on the App Store"
               />
-            </a>
-            <a href="#" className="block pl-[40px] leading-[23px] mb-[15px] ">
+            </Link>
+            <Link href="#" className="block pl-[40px] leading-[23px] mb-[15px] ">
               <img
                 src="https://static.chope.co/static/mainwebsite5.0/images/android-footer.svg?date=20250617"
                 alt="googleplay"
                 className="h-[47px] max-w-[140px]"
                 aria-label="Get it on Google Play"
               />
-            </a>
-            <a href="#" className="block pl-[40px] leading-[23px] mb-[15px]">
+            </Link>
+            <Link href="#" className="block pl-[40px] leading-[23px] mb-[15px]">
               <img
                 src="https://static.chope.co/static/mainwebsite5.0/images/huawei-footer-dark.svg?date=20250617"
                 alt="appgalery"
                 className="h-[47px] max-w-[140px]"
                 aria-label="Download on Huawei AppGallery"
               />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -114,34 +101,34 @@ const Footer = () => {
           <div className="lg:hidden">
             <div>
               <span className=" text-[14px]">Follow Us</span>
-              <a href="https://www.facebook.com" aria-label="Facebook">
+              <Link href="https://www.facebook.com" aria-label="Facebook">
                 <img
                   src="/images/facebook.png"
                   alt="facebook"
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
-              <a href="https://instagram.com" aria-label="Instagram">
+              </Link>
+              <Link href="https://instagram.com" aria-label="Instagram">
                 <img
                   src="/images/instagram.png"
                   alt="instagram"
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
-              <a href="https://linkedin.com" aria-label="linkedin">
+              </Link>
+              <Link href="https://linkedin.com" aria-label="linkedin">
                 <img
                   src="/images/linkedin.png"
                   alt="linkedin"
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
-              <a href="https://tiktok.com" aria-label="tiktok">
+              </Link>
+              <Link href="https://tiktok.com" aria-label="tiktok">
                 <img
                   src="/images/tiktok.png"
                   alt="tiktok"
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
+              </Link>
             </div>
 
             <div className=" text-[14px] pt-[16px] mb-2">
@@ -160,34 +147,34 @@ const Footer = () => {
               <span>Follow Us</span>
 
              
-              <a href="" >
+              <Link href="" >
                 <img
                   src="/images/facebook.png"
                   alt="facebook"
                   className=" max-w-[30px] max-h-[30px] ml-[16px] "
                 />
-              </a>
-              <a href="">
+              </Link>
+              <Link href="">
                 <img
                   src="/images/instagram.png"
                   alt="instagram"
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
-              <a href="">
+              </Link>
+              <Link href="">
                 <img
                   src="/images/linkedin.png"
                   alt="linkedin"
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
-              <a href="">
+              </Link>
+              <Link href="">
                 <img
                   src="/images/tiktok.png"
                   alt=""
                   className="inline max-w-[30px] max-h-[30px] ml-[16px]"
                 />
-              </a>
+              </Link>
             </div>
           </div>
 

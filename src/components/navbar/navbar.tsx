@@ -1,6 +1,10 @@
+"use client"
+
 import Link from "next/link"
 import Navburger from "./navburger"
 import Navlink from "./navlink"
+
+
 
 const Navbar = () =>{
     return(
