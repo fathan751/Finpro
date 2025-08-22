@@ -5,25 +5,45 @@ import {IoClose,IoMenu,IoPeople} from "react-icons/io5"
 import { useEffect, useState } from "react"
 import Navlanguage from "./_components/navlanguage"
 import LoginModal from "./_components/loginmodal"
+import Registermodal from "./_components/registermodal"
+import Cookies from "js-cookie"
 
 
 
 const Navburger = () => {
 
 
-
     const [token,setToken] = useState<string|null>(null)
     const [open,setOpen] = useState(false)
     const [openLogin, setOpenLogin] = useState(false);
+    const [isRegister, setIsRegister] = useState(false)
+    const role = Cookies.get("role")
+
 
     const handleLogout = () => {
-        localStorage.removeItem("token")
+        Cookies.remove("token")
+        Cookies.remove("role")
         setToken(null)
+        window.location.href="/"
     }
 
     useEffect(()=>{
-        setToken(localStorage.getItem("token"))
+        const updateToken = () => {
+        const storedToken = Cookies.get("token")
+        setToken(storedToken !== undefined?storedToken:null)
+        }
+
+        updateToken()
+        
+        window.addEventListener("storageUpdate", updateToken);
+        window.addEventListener("storage",updateToken)
+
+        return () => {
+            window.removeEventListener("storageUpdate",updateToken)
+            window.removeEventListener("storage",updateToken)
+        }
     },[])
+
 
 
   return (
@@ -31,19 +51,42 @@ const Navburger = () => {
         <button onClick={() => setOpenLogin(!openLogin)} className={token?"hidden":"md:block hidden self-center bg-[#ff385c] hover:bg-red-300 px-5 py-2 rounded-sm text-[#f8f2de]"}>Login</button>
         <button onClick={handleLogout} className={token?"md:block hidden self-center bg-[#ff385c] hover:bg-red-300 px-5 py-2 rounded-sm text-[#f8f2de]":"hidden"}>Logout</button>
         
-      {openLogin && <LoginModal onClose={() => setOpenLogin(!openLogin)} />}
+      {openLogin && (!isRegister?<LoginModal isRegister={isRegister} setIsRegister={setIsRegister} onClose={() => setOpenLogin(!openLogin)}/>:<Registermodal onClose = {() => setOpenLogin(!openLogin)} isRegister={isRegister}
+        setIsRegister={setIsRegister}/>)}
         <Navlanguage/>
         <button onClick={() => setOpen(!open)} className="  p-2  text-sm text-gray-500 rounded-md hover:bg-gray-100">
             {!open? <IoMenu className="size-8"/> : <IoClose className="size-8"/>}
         </button>
 
         <div className={open?`fixed top-20 lg:top-22 right-0  2xl:right-5  rounded-xl  bg-[#efefef] w-[200px] h-screen lg:h-1/2  lg:w-[250px]`:"hidden"}>
-          <ul className="p-4 flex flex-col gap-5">
+          <ul className="p-4 flex flex-col gap-4">
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/'}>
                     Home
                 </Link>
             </li>
+            {token &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/my-account'} className="flex items-center gap-3">
+                  <IoPeople/>Account
+                </Link>
+            </li>
+            }
+            {(token && role==='admin') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/admin/dashboard'}>
+                   Dashboard
+                </Link>
+            </li>
+            }
+            {(token && role==='admin') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/admin/activity'}>
+                   Manage Activity
+                </Link>
+            </li>
+            }
+
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/mybooking'}>
                    My Booking
@@ -59,10 +102,10 @@ const Navburger = () => {
                     About Us
                 </Link>
             </li>
-            <li className="hover:bg-gray-200 py-2">
-                <Link href={'/Login'} className="flex items-center gap-3">
-                  <IoPeople/>Account
-                </Link>
+            
+            <li>
+            <button onClick={handleLogout} className={token?" py-2 w-full text-left  hover:bg-gray-200":"hidden"}>Logout</button>
+            <button onClick={() => setOpenLogin(!openLogin)} className={token?"hidden":"md:block hidden  w-full text-left py-2  hover:bg-gray-200"}>Login</button>
             </li>
 
           </ul>

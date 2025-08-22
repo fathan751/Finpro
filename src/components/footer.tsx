@@ -181,7 +181,7 @@ const Footer = () => {
           <div className=" text-[11px]">
             <p className="pb-[8px]">Customer Support Contact</p>
             <span>
-              For Customer Support please fill in <a href="###" className="text-[#1565C0]">Contact Form</a> or email support.id@chope.co.
+              For Customer Support please fill in <a href="###" className="text-[#1565C0]">Contact Form</a> or email support.id@Travelins.co.
             </span>
           </div>
 

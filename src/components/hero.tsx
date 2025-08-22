@@ -1,11 +1,29 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const Hero = () => {
+interface Banner {
+  id: string
+  imageUrl: string
+}
+
+const Hero = async () => {
+
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+
+  const res = await fetch(`${BASE_URL}/api/v1/banners`,{
+    method:"get",
+    cache:"no-store",
+    headers: {
+      'apiKey':"24405e01-fbc1-45a5-9f5a-be13afcd757c"
+    }
+  })
+
+  const data = await res.json()
+
   return (
     <div className="relative h-screen text-white overflow-hidden">
         <div className="absolute inset-0">
-            <Image src="/images/hero3.jpg" alt="hero image" fill className="object-cover object-center w-full h-full"/>
+            <Image src={data.data[3].imageUrl} alt="hero image" fill className="object-cover object-center w-full h-full"/>
             <div className="absolute inset-0 bg-black opacity-50 "></div>
         </div>
         <div className="relative flex flex-col justify-center items-center h-full text-center">
