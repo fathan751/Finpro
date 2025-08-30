@@ -24,9 +24,9 @@ const CreateClient = () => {
     if(loading) return <div>Loading...</div>
 
   return (
-    <div className="max-w-screen-xl px-4 py-16 mt-10 mx-auto flex flex-col">
+    <div className="px-4 py-16 mt-10 mx-auto flex flex-col">
         <Link href={"./"} className="w-fit self-end">
-        <Button className="cursor-pointer">Back</Button>
+        <Button className="cursor-pointer hover:bg-gray-500">Back</Button>
         </Link>
         <Createactivity/>
     </div>

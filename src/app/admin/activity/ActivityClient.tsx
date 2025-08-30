@@ -7,9 +7,10 @@ import { Suspense } from "react"
 
 const ActivityClient = () => {
 
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState(true)
 
     const router = useRouter()
+
 
     useEffect(() => {
         const token = Cookies.get("token")
@@ -27,7 +28,7 @@ const ActivityClient = () => {
 
   return (
         <Suspense fallback={<p>Loading Data...</p>}>
-                    <ActivityTable/>
+                <ActivityTable/>
         </Suspense>
     
   )

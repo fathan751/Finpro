@@ -1,0 +1,14 @@
+import axios from "axios"
+import { BASE_URL,API_KEY } from "@/components/main"
+
+
+export const fetchPromo = async () => {
+
+    const response = await axios.get(`${BASE_URL}/api/v1/promos`,{
+        headers:{
+            apiKey: API_KEY
+        }
+    })
+
+    return response.data.data
+}

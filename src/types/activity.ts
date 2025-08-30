@@ -16,3 +16,4 @@ export interface ActivityProps{
     createdAt: string
     updatedAt: string
 }
+

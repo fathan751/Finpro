@@ -7,9 +7,10 @@ import { useState, useEffect } from "react"
 interface CardProps {
   title: string
   imageUrls: string
+  activityId: string
 }
 
-const Card = ({ title, imageUrls }: CardProps) => {
+const Card = ({ title,activityId, imageUrls }: CardProps) => {
   const fallback = "/images/placeholder.png"
   const [imageSrc, setImageSrc] = useState(fallback)
 
@@ -31,7 +32,7 @@ const Card = ({ title, imageUrls }: CardProps) => {
         <img
           src={imageSrc}
           alt="room image"
-          className="w-full h-full object-fill rounded-t-sm"
+          className="w-full h-full object-cover rounded-t-sm"
         />
       </div>
       <div className="p-8">
@@ -50,7 +51,7 @@ const Card = ({ title, imageUrls }: CardProps) => {
             <span>2 people</span>
           </div>
           <Link
-            href="#"
+            href={`activity/${activityId}`}
             className="px-6 py-2.5 md:px-10 md:py-3 font-semibold text-white bg-[#ff385c] hover:bg-[#A31D1D] transition duration-150"
           >
             Book Now

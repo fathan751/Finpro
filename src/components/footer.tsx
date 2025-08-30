@@ -96,7 +96,7 @@ const Footer = () => {
         </ul>
       </div>
       {/* Footer 2 Mobile */}
-      <div className="container-footer-2 bg-[#efefef] mt-[-1px] pb-[24px] w-screen">
+      <div className="container-footer-2 bg-[#efefef] mt-[-1px] pb-[24px]">
         <div className="px-[16px] pt-[24px] lg:mx-[302.500px]">
           <div className="lg:hidden">
             <div>
@@ -139,12 +139,10 @@ const Footer = () => {
 
 {/* Footer 2 Dekstop */}
           <div className="hidden lg:block">
-            <div className="lg:flex gap-[10px] h-[50px  items-center">
+            <div className="lg:flex gap-[10px] h-[50px]  items-center">
               <div className=" text-[14px]">
-                &copy; 2025
-                All Rights Reserved
+                &copy; 2025 All Rights Reserved Follow Us
               </div>
-              <span>Follow Us</span>
 
              
               <Link href="" >

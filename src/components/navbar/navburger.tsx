@@ -3,7 +3,7 @@
 import Link from "next/link"
 import {IoClose,IoMenu,IoPeople} from "react-icons/io5"
 import { useEffect, useState } from "react"
-import Navlanguage from "./_components/navlanguage"
+import NavCart from "./_components/navCart"
 import LoginModal from "./_components/loginmodal"
 import Registermodal from "./_components/registermodal"
 import Cookies from "js-cookie"
@@ -47,13 +47,13 @@ const Navburger = () => {
 
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 items-center">
         <button onClick={() => setOpenLogin(!openLogin)} className={token?"hidden":"md:block hidden self-center bg-[#ff385c] hover:bg-red-300 px-5 py-2 rounded-sm text-[#f8f2de]"}>Login</button>
         <button onClick={handleLogout} className={token?"md:block hidden self-center bg-[#ff385c] hover:bg-red-300 px-5 py-2 rounded-sm text-[#f8f2de]":"hidden"}>Logout</button>
         
       {openLogin && (!isRegister?<LoginModal isRegister={isRegister} setIsRegister={setIsRegister} onClose={() => setOpenLogin(!openLogin)}/>:<Registermodal onClose = {() => setOpenLogin(!openLogin)} isRegister={isRegister}
         setIsRegister={setIsRegister}/>)}
-        <Navlanguage/>
+        <NavCart/>
         <button onClick={() => setOpen(!open)} className="  p-2  text-sm text-gray-500 rounded-md hover:bg-gray-100">
             {!open? <IoMenu className="size-8"/> : <IoClose className="size-8"/>}
         </button>
@@ -67,8 +67,8 @@ const Navburger = () => {
             </li>
             {token &&
             <li className="hover:bg-gray-200 py-2">
-                <Link href={'/my-account'} className="flex items-center gap-3">
-                  <IoPeople/>Account
+                <Link href={'/account'} className="flex items-center gap-3">
+                  <IoPeople aria-hidden="true" />Account
                 </Link>
             </li>
             }
@@ -86,26 +86,52 @@ const Navburger = () => {
                 </Link>
             </li>
             }
+            {(token && role==='admin') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/admin/category'}>
+                   Manage Category
+                </Link>
+            </li>
+            }
+            {(token && role==='admin') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/admin/banner'}>
+                   Manage Banners
+                </Link>
+            </li>
+            }
+            {(token && role==='admin') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/admin/promo'}>
+                   Manage Promo's
+                </Link>
+            </li>
+            }
 
+            {(token && role==='user') &&
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/mybooking'}>
                    My Booking
                 </Link>
             </li>
+            }
+            {(token && role==='user') &&
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/contact'}>
                     Contact Us
                 </Link>
             </li>
+}
+{(token && role==='user') &&
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/about'}>
                     About Us
                 </Link>
             </li>
-            
+}
             <li>
-            <button onClick={handleLogout} className={token?" py-2 w-full text-left  hover:bg-gray-200":"hidden"}>Logout</button>
-            <button onClick={() => setOpenLogin(!openLogin)} className={token?"hidden":"md:block hidden  w-full text-left py-2  hover:bg-gray-200"}>Login</button>
+            <button onClick={handleLogout} className={token?" py-2 w-full text-left cursor-pointer hover:bg-gray-200":"hidden"}>Logout</button>
+            <button onClick={() => setOpenLogin(!openLogin)} className={token?"hidden":"md:block hidden cursor-pointer w-full text-left py-2  hover:bg-gray-200"}>Login</button>
             </li>
 
           </ul>

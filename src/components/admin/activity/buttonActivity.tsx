@@ -6,11 +6,16 @@ import { toast } from "sonner"
 import { Trash } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PencilIcon } from "lucide-react"
+
 interface DeleteButtonProps {
+  id: string
+  onSuccess: () => void
+}
+interface EditButtonProps{
   id: string
 }
 
-export const EditButton = ({ id }: DeleteButtonProps) => {
+export const EditActivityButton = ({ id}: EditButtonProps) => {
   return (
    <Link href={`/admin/activity/edit/${id}`} className="rounded-sm p-1 hover:bg-gray-200">
     <Button className="hover:scale-125 hover:cursor-pointer font-medium bg-blue-600 hover:bg-blue-900">
@@ -20,7 +25,8 @@ export const EditButton = ({ id }: DeleteButtonProps) => {
   )
 }
 
-export const DeleteButton = ({ id }: DeleteButtonProps) => {
+export const DeleteActivityButton = ({ id,onSuccess  }: DeleteButtonProps) => {
+
   const handleDelete = async () => {
     const adminToken = Cookies.get("token")
 
@@ -34,6 +40,7 @@ export const DeleteButton = ({ id }: DeleteButtonProps) => {
         })
         console.log(res)
         toast.success("Activity Deleted Successfully")
+        onSuccess()
     } catch (err: any) {
       console.error(err)
       toast.error(err.data.message || "Failed to delete activity")

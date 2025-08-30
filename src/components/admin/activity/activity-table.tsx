@@ -5,7 +5,7 @@ import { BASE_URL, API_KEY } from '@/components/main'
 import axios from 'axios'
 import { ActivityProps } from '@/types/activity'
 import { formatDate,formatCurrency } from '@/lib/utils'
-import { DeleteButton,EditButton } from './button'
+import { DeleteActivityButton,EditActivityButton } from './buttonActivity'
 
 const ActivityTable = () => {
 
@@ -13,6 +13,10 @@ const ActivityTable = () => {
     const baseUrl = BASE_URL
 
     const [activityData,setActivityData] = useState<ActivityProps[]>([])
+    const handleDeleteSuccess = (deletedId:string) => {
+        setActivityData(prev => prev.filter(activity => activity.id !== deletedId))
+    }
+
 
     const fetchData = async () => {
         try {
@@ -32,16 +36,9 @@ const ActivityTable = () => {
         fetchData()
     },[])
 
-    const getImageUrl = (urls: string[] | null | undefined): string => {
-  if (!Array.isArray(urls) || urls.length === 0 || !urls[0]) {
-    return "/images/placeholder.png"
-  }
-  return urls[0]
-}
-
 
   return (
-    <div className='bg-white p-4 mt-5 shadow-sm'>
+    <div className='bg-white p-4 mt-5 shadow-sm overflow-x-scroll'>
         <table className='w-full divide-y'>
             <thead>
                 <tr>
@@ -61,15 +58,15 @@ const ActivityTable = () => {
                           target.onerror = null; 
                           target.src = "/images/placeholder.png";
                         }}
-                         alt='activity image' className='object-cover w-30 h-30 rounded-sm'/>
+                         alt='activity image' className='object-cover min-w-30 min-h-30 md:w-45 md:h-45 rounded-lg'/>
                     </td>
                     <td className='px-6 py-4'>{activity.title}</td>
                     <td className='px-6 py-4'>{formatCurrency(activity.price)}</td>
                     <td className='px-6 py-4'>{formatDate(activity.createdAt)}</td>
                     <td className='px-6 py-4 text-right'>
                         <div className='flex items-center justify-center gap-1'>
-                        <EditButton id={activity.id}/>
-                        <DeleteButton id={activity.id}/> 
+                        <EditActivityButton id={activity.id}/>
+                        <DeleteActivityButton id={activity.id} onSuccess={() => handleDeleteSuccess(activity.id)}/> 
                         </div>
                     </td>
                 </tr>

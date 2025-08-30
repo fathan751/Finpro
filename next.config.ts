@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
     domains: [
       "travel-journal-api-bootcamp.do.dibimbing.id",
       "s-light.tiket.photos" ,
-      'www.arestravel.com'
+      'www.arestravel.com',
+      'images.unsplash.com',
+      "raw.githubusercontent.com"
     ]
   }
 }

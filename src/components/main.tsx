@@ -17,15 +17,14 @@ const Main = async () => {
 const data = await res.json()
 
   return (
-    <div className="max-w-screen-xl py-6 pb-20 px-4 mx-auto">
+    <div className="max-w-screen-xl py-6 pb-20 px-4
+     mx-auto">
         <div className="grid gap-7 md:grid-cols-3">
 
             {data.data.slice(0,9).map((item:ActivityProps) => (
-            <Card key={item.id} title={item.title} imageUrls={item.imageUrls[0]} />
-
+            <Card key={item.id} activityId={item.id} title={item.title} imageUrls={item.imageUrls[0]} />
         ))}
         </div>
-
 
     </div>
   )

@@ -1,25 +1,26 @@
-
+"use client"
 import Link from "next/link"
+import Cookies from "js-cookie"
+import { useEffect, useState } from "react"
+import NavAdmin from "./_components/navadmin"
+import NavUser from "./_components/navuser"
 
 
 
 const Navlink = () => {
 
+    const [role,setRole] = useState<string|null>(null)
 
+    useEffect(() => {
+        const storedRole = Cookies.get("role")
+        setRole(storedRole||null)
+    },[])
+
+   
     return(
-        <div>
-            <ul className="flex gap-1 md:gap-5 font-semibold text-lg">
-                <li>
-                    <Link href={'/'}>Home</Link>
-                </li>
-                <li>
-                    <Link href="/experiences">Experience</Link>
-                </li>
-                <li>
-                    <Link href="services">Services</Link>
-                </li>
-            </ul>
-        </div>
+        <>
+            {role === "admin"? <NavAdmin/>:<NavUser/>}
+        </>
     )
 }
 

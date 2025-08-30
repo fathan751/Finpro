@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Dispatch,SetStateAction } from "react";
 import Cookies from "js-cookie";
+
 interface LoginModalProps{
     onClose: () => void 
     isRegister:boolean
@@ -75,7 +76,7 @@ const LoginModal = ({onClose,isRegister,setIsRegister }:LoginModalProps) => {
             toast.success('Login Berhasil')
             setLoading(false)
             setTimeout(() => {
-                onClose()
+                window.location.reload()
             },1000)
 
         } catch (err:any) {
@@ -84,8 +85,6 @@ const LoginModal = ({onClose,isRegister,setIsRegister }:LoginModalProps) => {
             setLoading(false)
         }
     }
-
-    
 
   return (
     <div className="fixed inset-0 bg-black/20  flex items-center justify-center">
@@ -117,12 +116,12 @@ const LoginModal = ({onClose,isRegister,setIsRegister }:LoginModalProps) => {
             </div>
 
 
-            <button type="submit" className="bg-[#ff385c] text-white px-4 py-2 rounded w-full">Login</button>
+            <button type="submit" className={`${loading? "opacity-50 cursor-not-allowed":"bg-[#ff385c] text-white px-4 py-2 rounded w-full"}`} disabled={loading}>Login</button>
         </form>
         
         <div className=" flex justify-center gap-1 mt-3">
             <p>Don't have account?</p> 
-            <button onClick={():void => setIsRegister(!isRegister)}><span className="font-bold ">Register</span></button>
+            <button onClick={():void => setIsRegister(!isRegister)} disabled={loading}><span className={`font-bold`}>Register</span></button>
         </div>
 
       </div>
