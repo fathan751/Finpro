@@ -8,6 +8,7 @@ import LoginModal from "./_components/loginmodal"
 import Registermodal from "./_components/registermodal"
 import Cookies from "js-cookie"
 
+export const tokenUser = Cookies.get("token")
 
 
 const Navburger = () => {
@@ -58,7 +59,7 @@ const Navburger = () => {
             {!open? <IoMenu className="size-8"/> : <IoClose className="size-8"/>}
         </button>
 
-        <div className={open?`fixed top-20 lg:top-22 right-0  2xl:right-5  rounded-xl  bg-[#efefef] w-[200px] h-screen lg:h-1/2  lg:w-[250px]`:"hidden"}>
+        <div className={open?`fixed top-20 lg:top-22 right-0  2xl:right-5  rounded-xl  bg-[#efefef] w-[200px] h-screen lg:h-2/3  lg:w-[250px]`:"hidden"}>
           <ul className="p-4 flex flex-col gap-4">
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/'}>
@@ -68,7 +69,7 @@ const Navburger = () => {
             {token &&
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/account'} className="flex items-center gap-3">
-                  <IoPeople aria-hidden="true" />Account
+                  <IoPeople />Account
                 </Link>
             </li>
             }
@@ -107,11 +108,18 @@ const Navburger = () => {
                 </Link>
             </li>
             }
+            {(token && role==='admin') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={'/admin/transaction'}>
+                   Manage Transaction
+                </Link>
+            </li>
+            }
 
             {(token && role==='user') &&
             <li className="hover:bg-gray-200 py-2">
-                <Link href={'/mybooking'}>
-                   My Booking
+                <Link href={'/my-transaction'}>
+                   My Transaction
                 </Link>
             </li>
             }
@@ -121,7 +129,12 @@ const Navburger = () => {
                     Contact Us
                 </Link>
             </li>
-}
+            }
+            {(token && role==='user') &&
+            <li className="hover:bg-gray-200 py-2">
+                <Link href={"/cart"} className="inline">My Cart</Link>
+            </li>
+            }
 {(token && role==='user') &&
             <li className="hover:bg-gray-200 py-2">
                 <Link href={'/about'}>

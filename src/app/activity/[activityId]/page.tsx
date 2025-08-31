@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { Suspense } from 'react'
 import ActivityDetail from '@/components/activity-detail'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
     title:"Activity Detail"

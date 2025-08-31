@@ -8,6 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
+
+  if (isNaN(date.getTime())) return "-"
   const formatter = new Intl.DateTimeFormat("id-ID", {
     dateStyle:"medium",
     timeStyle:"medium"

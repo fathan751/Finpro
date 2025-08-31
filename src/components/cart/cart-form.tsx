@@ -9,14 +9,17 @@ import Cookies from "js-cookie"
 import { BASE_URL,API_KEY } from "../main"
 import { ActivityProps } from "@/types/activity"
 import { Button } from "../ui/button"
+import { PaymentMethod } from "@/types/payment"
+import { toast } from "sonner"
 
 const CartForm = () => {
 
   const token = Cookies.get("token")
-  const [quantity, setQuantity] = useState<string|null>("")
-
+  const [paymentMethods,setPaymentMethods] = useState<PaymentMethod[]>([])
+  const [selectedPayment,setSelectedPayment] = useState<string | null>(null)
   const [carts,setCarts] = useState<CartProps[]>([])
 
+  // API Cart
   const updateCartQuantity = async (cartId: string, newQuantity: number) => {
     try {
         const res = await axios.post(`${BASE_URL}/api/v1/update-cart/${cartId}`,{quantity: newQuantity},{
@@ -63,11 +66,47 @@ const CartForm = () => {
     }
   }
 
+  // API PAYMENT METHODS ===
+
+  const getPaymentMethods = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/api/v1/payment-methods`,{
+        headers:{
+          apiKey: API_KEY
+        }
+      })
+      console.log(res)
+      setPaymentMethods(res.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(()=>{
     getCart()
-
+    getPaymentMethods()
   },[])
 
+
+  // API Create Transaction ===
+
+  const createTransaction = async () => {
+
+    try {
+      const cartIds = carts.map(c => c.id)
+      const res = await axios.post(`${BASE_URL}/api/v1/create-transaction`,{cartIds,paymentMethodId: selectedPayment},{
+        headers:{
+          apiKey: API_KEY,
+          Authorization: `Bearer ${token}`
+        }
+      })
+      console.log(res)
+      toast.success(res.data.message)
+    } catch (error:any) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  }
 
   return (
     <form action="">
@@ -87,12 +126,12 @@ const CartForm = () => {
           <div key={cart.activityId} className="border p-4 rounded-md flex gap-4 items-start mb-2">
             <input type="checkbox" defaultChecked className="mt-2" />
 
-            <Image
+            <img
               src={cart.activity.imageUrls[0]}
               alt="Buku"
               width={70}
               height={70}
-              className="rounded border"
+              className="rounded border w-[70px] h-[70px]"
             />
 
             <div className="flex-1">
@@ -153,20 +192,47 @@ const CartForm = () => {
           </div>
 
           <div className="bg-green-50 border border-green-300 rounded-md p-3 mb-4 text-sm text-green-700">
-            ✅ 1 kupon promo berhasil dipakai
+            Kupon
             <br />
             <span className="text-gray-600">
               {/* Dapat cashback Rp{cashback.toLocaleString("id-ID")} */}
             </span>
           </div>
+          {/* select payment method */}
+           <div className="mb-4">
+            <h4 className="font-medium mb-2">Pilih Metode Pembayaran</h4>
+            <div className="space-y-2">
+              {paymentMethods.map(pm => (
+                <label
+                  key={pm.id}
+                  className={`flex items-center gap-3 p-2 border rounded cursor-pointer ${
+                    selectedPayment === pm.id
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={pm.id}
+                    checked={selectedPayment === pm.id}
+                    onChange={() => setSelectedPayment(pm.id)}
+                  />
+                  <img
+                    src={pm.imageUrl}
+                    alt={pm.name}
+                    width={40}
+                    height={40}
+                    className="rounded"
+                  />
+                  <span>{pm.name}</span>
+                </label>
+              ))}
+            </div>
+          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white font-medium py-3 rounded-lg hover:bg-green-700 transition"
-            // onClick={}
-          >
-            Beli ({carts.length})
-          </button>
+          <button type="button" onClick={createTransaction} disabled={!selectedPayment || carts.length === 0} 
+          className={`w-full text-white font-medium py-3 rounded-lg transition ${!selectedPayment || carts.length === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-[#ff385c] hover:bg-red-700"}`}> Beli ({carts.length})</button>
         </div>
       </div>
     </form>

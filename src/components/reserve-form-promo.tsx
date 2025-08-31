@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { addDays } from "date-fns";
 import DatePicker from "react-datepicker"
+import { Button } from "./ui/button";
 import "react-datepicker/dist/react-datepicker.css"
 import axios from "axios";
 import { BASE_URL,API_KEY } from "./main";
@@ -9,12 +10,10 @@ import Cookies from "js-cookie";
 import { toast } from "sonner";
 import LoginModal from "./navbar/_components/loginmodal";
 import Registermodal from "./navbar/_components/registermodal";
-import { useRouter } from "next/navigation";
 
-const ReserveForm = ({activityId}:{activityId:string}) => {
+const ReserveFormPromo = ({promoId}:{promoId:string}) => {
 
     const token = Cookies.get("token")
-    const router = useRouter()
 
     const StartDate = new Date()
     const EndDate = addDays(StartDate,1)
@@ -33,7 +32,7 @@ const ReserveForm = ({activityId}:{activityId:string}) => {
     const handleAddToCart = async () => {
 
         const payload = {
-            activityId: activityId
+            activityId: promoId
         }
         try {
             const resCart = await axios.post(`${BASE_URL}/api/v1/add-cart`,payload,{
@@ -44,8 +43,6 @@ const ReserveForm = ({activityId}:{activityId:string}) => {
             })
             console.log(resCart)
             toast.success(resCart.data.message)
-            router.replace("/my-transaction")
-
         } catch (error) {
             console.log(error)
         }
@@ -81,9 +78,12 @@ const ReserveForm = ({activityId}:{activityId:string}) => {
             </div>
             
             {token ? (
-        <button onClick={handleAddToCart} className="px-10 py-3 font-semibold w-full bg-[#ff385c] text-white">
-  Add to Cart
-</button>
+        <button
+          onClick={handleAddToCart}
+          className="px-10 py-3 text-center font-semibold text-white w-full bg-[#ff385c] rounded-sm cursor-pointer hover:bg-[#aa1d1d]"
+        >
+          Add To Cart
+        </button>
       ) : (
         <>
           {openLogin && (
@@ -115,4 +115,4 @@ const ReserveForm = ({activityId}:{activityId:string}) => {
   )
 }
 
-export default ReserveForm
+export default ReserveFormPromo

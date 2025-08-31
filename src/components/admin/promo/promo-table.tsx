@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { fetchPromo } from "@/services/promoService"
+import { getPromo } from "@/services/promoService"
 import { formatDate } from "@/lib/utils"
 import { PromoProps } from "@/types/promo"
 import { DeletePromoButton,EditPromoButton } from "./buttonPromo"
@@ -17,7 +17,7 @@ const PromoTable = () => {
     useEffect(() => {
         const load = async () => {
             try {
-                const data = await fetchPromo()
+                const data = await getPromo()
                 setPromos(data)
             } catch (error) {
                 console.log(error)

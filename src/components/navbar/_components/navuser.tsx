@@ -11,7 +11,7 @@ const NavUser = () => {
                     <Link href="/activity">Activity</Link>
                 </li>
                 <li>
-                    <Link href="services">Services</Link>
+                    <Link href="/contact">Contact Us</Link>
                 </li>
         </ul>
     </div>
