@@ -23,7 +23,7 @@ const Hero = async () => {
   return (
     <div className="relative h-screen text-white overflow-hidden">
         <div className="absolute inset-0">
-            <Image src={data.data[0].imageUrl} alt="hero image" fill className="object-cover object-center w-full h-full"/>
+            <img src={data.data[0].imageUrl} alt="hero image" className="object-cover object-center w-full h-full"/>
             <div className="absolute inset-0 bg-black opacity-50 "></div>
         </div>
         <div className="relative flex flex-col justify-center items-center h-full text-center">

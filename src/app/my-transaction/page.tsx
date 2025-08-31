@@ -1,7 +1,5 @@
 import MyTransactionList from "@/components/transaction/my-transaction-list"
 import { Metadata } from "next"
-import { tokenUser } from "@/components/navbar/navburger"
-import { BASE_URL,API_KEY } from "@/components/main"
 
 export const metadata:Metadata = {
     title:"My Transaction"

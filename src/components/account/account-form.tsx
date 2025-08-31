@@ -1,6 +1,5 @@
 
 import { UserProps } from "@/types/user"
-import Image from "next/image"
 import Link from "next/link"
 
 const AccountForm = ({user}:{user:UserProps|null}) => {
@@ -9,7 +8,7 @@ const AccountForm = ({user}:{user:UserProps|null}) => {
         <div className='h-[100px] rounded-t-xl bg-gradient-to-r from-[#ff385c] to-[#a31d1d]'></div>
         <div className="mt-7 px-10 flex items-center justify-between">
             <div className="flex items-center space-x-5">
-            <Image src={user?.profilePictureUrl ?? "images/placeholder.png"} alt="Profile Picture" width={100} height={100} className="rounded-full"/>
+            <img src={user?.profilePictureUrl ?? "images/placeholder.png"} alt="Profile Picture" width={100} height={100} className="rounded-full"/>
             <div>
                 <p className="font-semibold">{user?.name}</p>
                 <p>{user?.email}</p>

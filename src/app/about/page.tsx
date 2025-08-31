@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import Headersection from "@/components/header-section"
 import {IoEyeOutline,IoLocateOutline} from "react-icons/io5"
-import Image from "next/image"
 
 export const metadata: Metadata = {
     title: "About",
@@ -14,7 +13,7 @@ const AboutPage = () => {
         <Headersection title="About Us" subTitle="Lorem ipsum dolor sit amet."/>
         <div className="max-w-screen-xl mx-auto py-20 px-4">
             <div className="grid md:grid-cols-2 gap-8">
-                <Image src="/images/about-image.jpg" width={650} height={579} alt="About Image"/>
+                <img src="/images/about-image.jpg" width={650} height={579} alt="About Image"/>
                 <div>
                     <h1 className="text-5xl font-semibold text-gray-900 mb-4">Who We Are</h1>
                     <p className="text-gray-700 py-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus deleniti at earum natus omnis exercitationem fugiat eum ut optio libero?</p>

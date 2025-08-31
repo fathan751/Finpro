@@ -24,9 +24,7 @@ const Card = ({ title,activityId, imageUrls,price,totalReview,rating }: CardProp
   const [imageSrc, setImageSrc] = useState(fallback)
 
 
-  const [open, setOpen] = useState(false)
 
-  const token = Cookies.get("token")
 
   useEffect(() => {
     if (!imageUrls || imageUrls.trim() === "") {
