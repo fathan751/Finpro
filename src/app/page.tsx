@@ -19,7 +19,7 @@ const Home = async () => {
       <Hero/>
       <div>
           <Promo/>
-          <img src={data.data[9].imageUrl} className="object-cover max-w-screen-xl object-center my-5 rounded-md w-full h-30 mx-auto"/>
+          <img src={data.data[1].imageUrl} className="object-cover max-w-screen-xl object-center my-5 rounded-md w-full h-30 mx-auto"/>
           <Main/>
 
       </div>
