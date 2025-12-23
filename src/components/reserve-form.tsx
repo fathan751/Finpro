@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { addDays } from "date-fns";
 import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
 import axios from "axios";
 import { BASE_URL,API_KEY } from "./main";
 import Cookies from "js-cookie";
@@ -44,7 +43,7 @@ const ReserveForm = ({activityId}:{activityId:string}) => {
             })
             console.log(resCart)
             toast.success(resCart.data.message)
-            router.replace("/my-transaction")
+            router.replace("/cart")
 
         } catch (error) {
             console.log(error)

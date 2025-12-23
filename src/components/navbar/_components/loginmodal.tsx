@@ -2,7 +2,6 @@
 
 import {IoClose} from "react-icons/io5"
 import Link from "next/link";
-import Image from "next/image";
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
@@ -53,7 +52,7 @@ const LoginModal = ({onClose,isRegister,setIsRegister }:LoginModalProps) => {
         }
 
         if(hasError){
-            toast.error("Email dan Password tidak boleh koosng")
+            toast.error("Email dan Password tidak boleh kosong")
             return
         }
 
