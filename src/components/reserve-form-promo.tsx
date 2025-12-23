@@ -2,8 +2,6 @@
 import { useState } from "react";
 import { addDays } from "date-fns";
 import DatePicker from "react-datepicker"
-import { Button } from "./ui/button";
-import "react-datepicker/dist/react-datepicker.css"
 import axios from "axios";
 import { BASE_URL,API_KEY } from "./main";
 import Cookies from "js-cookie";

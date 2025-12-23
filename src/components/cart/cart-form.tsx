@@ -1,23 +1,29 @@
 "use client"
 
-import Image from "next/image"
 import { useEffect, useState } from "react"
-import { IoTrashOutline, IoHeartOutline } from "react-icons/io5"
+import { IoTrashOutline} from "react-icons/io5"
 import { CartProps } from "@/types/cart"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { BASE_URL,API_KEY } from "../main"
-import { ActivityProps } from "@/types/activity"
 import { Button } from "../ui/button"
 import { PaymentMethod } from "@/types/payment"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+import { formatCurrency } from "@/lib/utils"
 
 const CartForm = () => {
+
+  const router = useRouter()
 
   const token = Cookies.get("token")
   const [paymentMethods,setPaymentMethods] = useState<PaymentMethod[]>([])
   const [selectedPayment,setSelectedPayment] = useState<string | null>(null)
   const [carts,setCarts] = useState<CartProps[]>([])
+  const [totalPayment,setTotalPayment] = useState<number>(0)
+  const [selectedCartIds,setSelectedCartIds] = useState<string[]>([])
+
+  
 
   // API Cart
   const updateCartQuantity = async (cartId: string, newQuantity: number) => {
@@ -102,11 +108,35 @@ const CartForm = () => {
       })
       console.log(res)
       toast.success(res.data.message)
+      setTimeout(() => {
+        router.replace("/my-transaction")
+      }, 1000);
     } catch (error:any) {
       console.log(error)
       toast.error(error.response.data.message)
     }
+
+    // selected function
   }
+
+  const toggleCart = (cartId:string) => {
+    setSelectedCartIds(prev => 
+      prev.includes(cartId)?
+      prev.filter(id => id !== cartId):
+      [...prev,cartId]
+    )
+  }
+
+  const getTotalPayment = () => {
+    const total = carts.filter(cart => selectedCartIds.includes(cart.id))
+    .reduce((sum,cart) => sum + (cart.activity.price*cart.quantity),0)
+    setTotalPayment(total)
+  }
+
+  useEffect(()=>{
+    getTotalPayment()
+  },[selectedCartIds,carts])
+
 
   return (
     <form action="">
@@ -124,11 +154,13 @@ const CartForm = () => {
           {carts.map(cart => (
 
           <div key={cart.activityId} className="border p-4 rounded-md flex gap-4 items-start mb-2">
-            <input type="checkbox" defaultChecked className="mt-2" />
+            <input type="checkbox" className="mt-2" checked={selectedCartIds.includes(cart.id)}
+            onChange={() => toggleCart(cart.id)}
+            />
 
             <img
               src={cart.activity.imageUrls[0]}
-              alt="Buku"
+              alt="Icon Activity"
               width={70}
               height={70}
               className="rounded border w-[70px] h-[70px]"
@@ -141,11 +173,9 @@ const CartForm = () => {
               <p className="text-gray-500 text-sm line-clamp-2 ">
                 ({cart.activity.description})
               </p>
-              <p className="text-lg font-semibold mt-2">
-                {/* Rp{price.toLocaleString("id-ID")} */}
-              </p>
 
-              <div className="flex items-center gap-3 mt-3">
+              <div className="flex items-center justify-between gap-3 mt-3">
+                <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => {
@@ -166,6 +196,8 @@ const CartForm = () => {
                 >
                   +
                 </button>
+                </div>
+                <div className="">{formatCurrency(cart.activity.price * cart.quantity)}</div>
               </div>
             </div>
 
@@ -185,10 +217,7 @@ const CartForm = () => {
         <div className="col-span-4 bg-white p-4 rounded-lg shadow-sm">
           <h3 className="text-lg font-semibold mb-4">Ringkasan belanja</h3>
           <div className="flex justify-between mb-4">
-            <span>Total</span>
-            <span className="font-semibold text-gray-800">
-              {/* Rp{total.toLocaleString("id-ID")} */}
-            </span>
+            <span className="font-semibold">Total: {formatCurrency(totalPayment)}</span>
           </div>
 
           <div className="bg-green-50 border border-green-300 rounded-md p-3 mb-4 text-sm text-green-700">
