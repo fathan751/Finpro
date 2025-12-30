@@ -4,6 +4,7 @@ import { useState,useEffect } from "react"
 import { useRouter } from "next/navigation"
 import ActivityTable from "@/components/admin/activity/activity-table"
 import { Suspense } from "react"
+import LoadingPage from "@/components/skeletons/LoadingPage"
 
 const ActivityClient = () => {
 
@@ -24,7 +25,7 @@ const ActivityClient = () => {
         
     },[])
     
-    if(loading) return <div>Loading...⏳⏱ </div>
+    if(loading) return <LoadingPage/>
 
   return (
         <Suspense fallback={<p>Loading Data...</p>}>
