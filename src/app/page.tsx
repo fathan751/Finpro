@@ -3,7 +3,7 @@ import Main from "@/components/main";
 import Promo from "@/components/promo";
 
 const Home = async () => {
-    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
   const res = await fetch(`${BASE_URL}/api/v1/banners`,{
     method:"get",

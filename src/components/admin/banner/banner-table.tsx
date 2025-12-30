@@ -1,14 +1,18 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { EditBannerButton,DeleteBannerButton } from "./button-banner"
+import { EditBannerButton } from "./button-banner"
 import { fetchBanner } from "@/services/bannerService"
 import { BannerProps } from "@/types/banner"
 import { formatDate } from "@/lib/utils"
+import { TrashIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import DeleteBannerModal from "./deleteBannerModal"
 
 const BannerTable = () => {
 
     const [banners,setBanners] = useState<BannerProps[]>([])
+    const [selectedBannerId,setSelectedBannerId] = useState<string|null>(null)
     const handleDeleteSuccess = (deletedId: string) => {
         setBanners(prev => prev.filter(banner => banner.id !== deletedId))
     }
@@ -38,7 +42,7 @@ const BannerTable = () => {
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
-                    {banners.map((banner)=> (
+                    {[...banners].reverse().map((banner)=> (
                     <tr key={banner.id} className='hover:bg-gray-100'>
                         <td className='px-6 py-4'><img src={banner.imageUrl || "/images/placeholder.png"}
                             onError={(e) => {
@@ -54,7 +58,20 @@ const BannerTable = () => {
                         <td className='px-6 py-4 text-right'>
                             <div className='flex items-center justify-center gap-1'>
                             <EditBannerButton id={banner.id}/>
-                            <DeleteBannerButton id={banner.id} onSuccess={() => handleDeleteSuccess(banner.id)}/> 
+                            <Button
+                             variant={"destructive"}
+                            className="cursor-pointer hover:scale-125 bg-[#ff385c]"
+                            onClick={() => setSelectedBannerId(banner.id)}
+                            >
+                                <TrashIcon/>
+                            </Button>
+                            {selectedBannerId === banner.id && (
+                               <DeleteBannerModal
+                                onConfirm = {() => handleDeleteSuccess(banner.id)}
+                                onClose = {() => setSelectedBannerId(null)}
+                                id={banner.id}
+                               />
+                            )}
                             </div>
                         </td>
                     </tr>

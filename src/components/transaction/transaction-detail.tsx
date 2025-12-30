@@ -8,6 +8,7 @@ import { TransactionProps } from "@/types/transaction"
 import { UserProps } from "@/types/user"
 import { formatDate } from "@/lib/utils"
 import { formatCurrency } from "@/lib/utils"
+import Link from "next/link"
 
 const TransactionDetail = ({transactionId}: {transactionId: string}) => {
     const token = Cookies.get(`token`)
@@ -52,7 +53,12 @@ const TransactionDetail = ({transactionId}: {transactionId: string}) => {
     },[])
 
   return (
+  <>
+  <div className="flex justify-end w-full ">
+    <Link href="./" className="bg-[#ff385c] px-3 py-1 mb-2 rounded-sm text-white">Back</Link>
+  </div>
     <div className="w-full p-4 bg-white border border-gray-200 rounded-sm shadow">
+        <button></button>
         <div className="grid md:grid-cols-2 md:gap-5">
             <ul>
                 <li className="py2">
@@ -154,6 +160,7 @@ const TransactionDetail = ({transactionId}: {transactionId: string}) => {
             </table>
         </div>
     </div>
+</>
   )
 }
 
