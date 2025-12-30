@@ -7,8 +7,9 @@ export const metadata: Metadata = {
     title:"Activity Detail"
 }
 
-const ActivityDetailPage = async({params,}:{params:{activityId: string}}) => {
-    const {activityId} = params
+const ActivityDetailPage = async({params,}:{params: Promise<{activityId: string}>}) => {
+    const {activityId} = await params
+    console.log(activityId)
 
   return (
     <div className='mt-20'> 
