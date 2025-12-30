@@ -5,7 +5,10 @@ import { BASE_URL, API_KEY } from '@/components/main'
 import axios from 'axios'
 import { ActivityProps } from '@/types/activity'
 import { formatDate,formatCurrency } from '@/lib/utils'
-import { DeleteActivityButton,EditActivityButton } from './buttonActivity'
+import { EditActivityButton } from './buttonActivity'
+import { Button } from '@/components/ui/button'
+import { TrashIcon } from 'lucide-react'
+import DeleteActivityModal from './deleteActivityModal'
 
 const ActivityTable = () => {
 
@@ -13,6 +16,7 @@ const ActivityTable = () => {
     const baseUrl = BASE_URL
 
     const [activityData,setActivityData] = useState<ActivityProps[]>([])
+    const [selectedActivityId,setSelectedActivityId] = useState<null|string>(null)
     const handleDeleteSuccess = (deletedId:string) => {
         setActivityData(prev => prev.filter(activity => activity.id !== deletedId))
     }
@@ -50,7 +54,7 @@ const ActivityTable = () => {
                 </tr>
             </thead>
             <tbody className='divide-y divide-gray-200'>
-                {activityData.map((activity)=> (
+                {[...activityData].reverse().map((activity)=> (
                 <tr key={activity.id} className='hover:bg-gray-100'>
                     <td className='px-6 py-4'><img src={activity.imageUrls?.[0] || "/images/placeholder.png"}
                         onError={(e) => {
@@ -66,7 +70,20 @@ const ActivityTable = () => {
                     <td className='px-6 py-4 text-right'>
                         <div className='flex items-center justify-center gap-1'>
                         <EditActivityButton id={activity.id}/>
-                        <DeleteActivityButton id={activity.id} onSuccess={() => handleDeleteSuccess(activity.id)}/> 
+                        <Button
+                             variant={"destructive"}
+                            className="cursor-pointer hover:scale-125 bg-[#ff385c]"
+                            onClick={() => setSelectedActivityId(activity.id)}
+                            >
+                                <TrashIcon/>
+                            </Button>
+                            {selectedActivityId === activity.id && (
+                               <DeleteActivityModal
+                                onConfirm = {() => handleDeleteSuccess(activity.id)}
+                                onClose = {() => setSelectedActivityId(null)}
+                                id={activity.id}
+                               />
+                            )}
                         </div>
                     </td>
                 </tr>

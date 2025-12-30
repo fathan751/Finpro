@@ -11,8 +11,8 @@ export const formatDate = (dateStr: string) => {
 
   if (isNaN(date.getTime())) return "-"
   const formatter = new Intl.DateTimeFormat("id-ID", {
-    dateStyle:"medium",
-    timeStyle:"medium"
+    dateStyle:"long",
+    timeStyle:"short"
   })
   return formatter.format(date)
 }

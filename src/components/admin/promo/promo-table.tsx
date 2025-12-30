@@ -4,12 +4,15 @@ import { useEffect, useState } from "react"
 import { getPromo } from "@/services/promoService"
 import { formatDate } from "@/lib/utils"
 import { PromoProps } from "@/types/promo"
-import { DeletePromoButton,EditPromoButton } from "./buttonPromo"
-import { Delete } from "lucide-react"
+import { EditPromoButton } from "./buttonPromo"
+import {TrashIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import DeletePromoModal from "./deletePromoModal"
 
 const PromoTable = () => {
 
     const [promos,setPromos] = useState<PromoProps[]>([])
+    const [selectedPromoId,setSelectedPromoId] = useState<string|null>(null)
     const handleDeleteSuccess = (deletedId: string) => {
         setPromos(prev => prev.filter(promo => promo.id !== deletedId))
     }
@@ -40,7 +43,7 @@ const PromoTable = () => {
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
-                    {promos.map((promo)=> (
+                    {[...promos].reverse().map((promo)=> (
                     <tr key={promo.id} className='hover:bg-gray-100'>
                         <td className='px-6 py-4'><img src={promo.imageUrl || "/images/placeholder.png"}
                             onError={(e) => {
@@ -57,7 +60,20 @@ const PromoTable = () => {
                         <td className='px-6 py-4 text-right'>
                             <div className='flex items-center justify-center gap-1'>
                             <EditPromoButton id={promo.id}/>
-                            <DeletePromoButton id={promo.id} onSuccess={() => handleDeleteSuccess(promo.id)}/>
+                            <Button
+                            variant={"destructive"}
+                            onClick={() => setSelectedPromoId(promo.id)}
+                            className="hover:scale-125 bg-[#ff385c] cursor-pointer"
+                            >
+                                <TrashIcon/>
+                            </Button>
+                            {selectedPromoId === promo.id && (
+                                <DeletePromoModal
+                                id={promo.id}
+                                onClose={() => setSelectedPromoId(null)}
+                                onConfirm={() => handleDeleteSuccess(promo.id)}
+                                />
+                            )}
                             </div>
                         </td>
                     </tr>

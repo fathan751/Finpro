@@ -3,12 +3,16 @@
 import { useEffect, useState } from "react"
 import { fetchCategory } from "@/services/categoryService"
 import { CategoryProps } from "@/types/category"
-import { EditCategoryButton,DeleteCategoryButton } from "./buttonCategory"
+import { EditCategoryButton } from "./buttonCategory"
 import { formatDate } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import DeleteCategoryModal from "./deleteCategoryModal"
+import { TrashIcon } from "lucide-react"
 
 const CategoryTable = () => {
 
     const [categories,setCategories] = useState<CategoryProps[]>([])
+    const [SelectedCategoriesId,setSelectedCategoriesId] = useState<string|null>(null)
     const handleDeleteSuccess = (deletedId: string) => {
         setCategories(prev => prev.filter(category => category.id !== deletedId))
     }
@@ -38,7 +42,7 @@ const CategoryTable = () => {
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
-                    {categories.map((category)=> (
+                    {[...categories].reverse().map((category)=> (
                     <tr key={category.id} className='hover:bg-gray-100'>
                         <td className='px-6 py-4'><img src={category.imageUrl || "/images/placeholder.png"}
                             onError={(e) => {
@@ -54,7 +58,20 @@ const CategoryTable = () => {
                         <td className='px-6 py-4 text-right'>
                             <div className='flex items-center justify-center gap-1'>
                             <EditCategoryButton id={category.id}/>
-                            <DeleteCategoryButton id={category.id} onSuccess={() => handleDeleteSuccess(category.id)}/> 
+                            <Button
+                             variant={"destructive"}
+                            className="cursor-pointer hover:scale-125 bg-[#ff385c]"
+                            onClick={() => setSelectedCategoriesId(category.id)}
+                            >
+                                <TrashIcon/>
+                            </Button>
+                            {SelectedCategoriesId === category.id && (
+                               <DeleteCategoryModal
+                                onConfirm = {() => handleDeleteSuccess(category.id)}
+                                onClose = {() => setSelectedCategoriesId(null)}
+                                id={category.id}
+                               />
+                            )}
                             </div>
                         </td>
                     </tr>

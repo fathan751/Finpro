@@ -28,6 +28,10 @@ const TransactionTable = () => {
         load()
     },[])
 
+    const disabledButton = (status:string) : boolean => {
+        return status === "success"
+    }
+
     const handleApprove = async (status:string,transId:string) => {
 
         const payload = {
@@ -47,7 +51,7 @@ const TransactionTable = () => {
 
         } catch (error:any) {
             console.log(error)
-            toast.error(error.response.data.errors)
+            toast.error(error.response.data.errors[0].message)
         }
     }
 
@@ -66,7 +70,7 @@ const TransactionTable = () => {
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
-                    {transactions.map((trans)=> (
+                    {[...transactions].reverse().map((trans)=> (
                     <tr key={trans.id} className='hover:bg-gray-100'>
                         <td className='px-6 py-4'>{trans.userId}</td>
                         <td className='px-6 py-4'>{trans.invoiceId}</td>
@@ -79,8 +83,7 @@ const TransactionTable = () => {
                         <td className="px-6 py-4">{trans.status}</td>
                         <td className='px-6 py-4 text-right'>
                             <div className="flex items-center gap-2 justify-center">
-                                <Button className="bg-green-600 hover:bg-green-400 cursor-pointer" onClick={() => handleApprove("success",trans.id)}>Accept</Button>
-                                <Button className="bg-red-600 hover:bg-red-400 cursor-pointer" onClick={() => handleApprove("failed",trans.id)}>Decline</Button>
+                                <Button className="bg-green-600 hover:bg-green-400 cursor-pointer" disabled={disabledButton(trans.status)} onClick={() => handleApprove("success",trans.id)}>Accept</Button>
                             </div>
                         </td>
                     </tr>

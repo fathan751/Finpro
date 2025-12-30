@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Suspense } from "react"
 import PromoTable from "@/components/admin/promo/promo-table"
+import LoadingPage from "@/components/skeletons/LoadingPage"
 
 const PromoClient = () => {
 
@@ -23,7 +24,7 @@ const PromoClient = () => {
         }
     })
 
-    if(loading) return <div>Loading...⏳⌛⌚</div>
+    if(loading) return <LoadingPage/>
 
   return (
     <Suspense fallback={<div>Loading Data...</div>}>
