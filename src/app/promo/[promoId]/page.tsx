@@ -1,8 +1,8 @@
 import { Suspense } from "react"
 import PromoDetail from "@/components/promo-detail"
 
-const PromoPageDetail = ({ params }: { params: { promoId: string } }) => {
-  const { promoId } = params
+const PromoPageDetail = async ({ params }: { params:Promise<{ promoId: string }>}) => {
+  const { promoId } = await params
 
   return (
     <div className="mt-20">
