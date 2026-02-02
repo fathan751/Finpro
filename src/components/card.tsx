@@ -5,10 +5,6 @@ import { IoPeopleOutline } from "react-icons/io5"
 import { useState, useEffect } from "react"
 import { formatCurrency } from "@/lib/utils"
 import {IoStar} from "react-icons/io5"
-import Cookies from "js-cookie"
-import LoginModal from "./navbar/_components/loginmodal"
-import Registermodal from "./navbar/_components/registermodal"
-import { IoClose,IoMenu } from "react-icons/io5"
 
 interface CardProps {
   title: string
@@ -22,9 +18,6 @@ interface CardProps {
 const Card = ({ title,activityId, imageUrls,price,totalReview,rating }: CardProps) => {
   const fallback = "/images/replace.png"
   const [imageSrc, setImageSrc] = useState(fallback)
-
-
-
 
   useEffect(() => {
     if (!imageUrls || imageUrls.trim() === "") {
