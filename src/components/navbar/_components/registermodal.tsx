@@ -86,7 +86,7 @@ const Registermodal = ({onClose,setIsRegister, isRegister}: RegistermodalProps) 
         e.preventDefault()
 
         setLoading(true)
-        let hasError = false
+        let hasError;
 
         if(!email.trim()){
             setEmailError(true)

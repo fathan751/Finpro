@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import  { useEffect, useRef, useState } from "react"
 import CardNoStar from "./cardNoStart"
 import { PromoProps } from "@/types/promo"
 import { getPromo } from "@/services/promoService"

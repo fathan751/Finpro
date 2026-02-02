@@ -1,10 +1,8 @@
-import React from 'react'
 import { Metadata } from 'next'
 import Headersection from '@/components/header-section'
 import {
     IoMailOutline,
     IoCallOutline,
-    IoLocationOutline
 } from "react-icons/io5"
 import ContactForm from '@/components/contact-form'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Metadata } from 'next'
 import TransactionDetail from '@/components/transaction/transaction-detail'
 import { Suspense } from 'react'
