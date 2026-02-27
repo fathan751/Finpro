@@ -162,10 +162,11 @@ const EditActivityForm = ({activityData,activityId}:EditFormProps) => {
             if (file) {
                 const imageForm = new FormData()
                 imageForm.append("image", file)
+
+                
             
                 const imageRes = await axios.post(`${BASE_URL}/api/v1/upload-image`, imageForm, {
                     headers: {
-                        "Content-Type": "multipart/form-data",
                         "apiKey": API_KEY,
                     },
                 })

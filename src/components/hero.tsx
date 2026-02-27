@@ -24,7 +24,7 @@ const Hero = async () => {
     <div className="relative h-screen text-white overflow-hidden">
         <div className="absolute inset-0">
             <div className="absolute inset-0 bg-black opacity-50 "/>
-            <img src={data.data[2].imageUrl} alt="hero image" className="object-cover object-center w-full h-full"/>
+            <img src={data.data[0].imageUrl || "/images/replace.png"} alt="hero image" className="object-cover object-center w-full h-full"/>
         </div>
         <div className="relative flex flex-col justify-center items-center h-full text-center">
             <h1 className="text-7xl font-extrabold leading-tight mb-3 capitalize">Book Your Travel</h1>
